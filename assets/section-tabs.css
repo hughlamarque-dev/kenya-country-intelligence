@@ -1,0 +1,9 @@
+/* Primary section navigation shared by Country analysis and Donor intelligence. */
+.tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;align-items:stretch;justify-content:center;padding:8px;margin:26px 0 24px;border:1px solid #d4dfda;border-radius:12px;background:#e8eeeb;overflow:visible}
+.tabs button{display:flex;align-items:center;justify-content:center;min-height:48px;min-width:0;width:100%;padding:12px 10px;border:1px solid transparent;border-radius:8px;background:transparent;color:#31494d;font-size:14px;font-weight:650;line-height:1.3;text-align:center;white-space:normal;cursor:pointer;transition:background .15s,color .15s}
+.tabs button:hover{background:#f8faf9;border-color:#c9d7d0}
+.tabs button.active{background:#254f4d;border-color:#254f4d;color:#fff;box-shadow:0 2px 5px #183d351f}
+.tabs button:focus-visible{outline:3px solid #ac874c;outline-offset:2px}
+@media(max-width:1050px){.tabs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:600px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.tabs button{font-size:13px}}
+@media print{.tabs{display:none!important}}
