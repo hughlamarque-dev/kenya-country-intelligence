@@ -1,13 +1,41 @@
-/* Product purpose belongs above the selector, with the map immediately below. */
-.home{grid-template-rows:auto minmax(400px,1fr);min-height:670px}
-.home-story{grid-column:1/-1;display:grid;grid-template-columns:minmax(240px,.9fr) minmax(0,2fr);gap:35px;padding:28px 36px;border-bottom:1px solid #d8e1e3;background:#f8faf7}
-.home-story h1{font-size:31px;line-height:1.25;letter-spacing:-.7px;margin:0;max-width:350px;color:#254f4d}
-.home-story ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:0;padding:0 0 0 20px}
-.home-story li{padding-left:3px;min-width:0}
-.home-story li::marker{color:#547a69;font-weight:600}
-.home-story strong{display:block;font-size:17px;font-weight:600;line-height:1.4;margin:0 0 7px}
-.home-story p{font-size:15px;line-height:1.55;color:#52676b;margin:0}
-.home-copy{padding-top:38px}
-.home-copy h2{font-size:44px;line-height:1.18;letter-spacing:-1px;margin:0 0 10px}
-@media(max-width:1050px){.home-story{grid-template-columns:1fr;gap:22px;padding:26px 28px}.home-story h1{max-width:none;font-size:29px}.home-story ol{gap:28px}.home{min-height:740px}}
-@media(max-width:720px){.home{height:auto;min-height:0;grid-template-columns:1fr;grid-template-rows:auto auto minmax(360px,55dvh)}.home-story{padding:25px 22px;gap:20px}.home-story h1{font-size:28px}.home-story ol{grid-template-columns:1fr;gap:17px}.home-story strong{margin-bottom:3px}.home-story p{font-size:15px}.home-copy{padding:24px 22px}.home-copy h2{font-size:30px}#africa{height:100%;min-height:360px}}
+/* A readable, bounded introduction to the atlas on small and large displays. */
+:root{--shell-height:80px}
+body{background:#f5f7f4}
+.topnav{height:var(--shell-height);padding:0 max(32px,calc((100vw - 1840px)/2));gap:30px}
+.brand{font-size:23px;font-weight:600;white-space:nowrap}
+.brand span{font-size:19px}
+.topnav nav{gap:8px}
+.topnav nav a{font-size:17px;font-weight:500;padding:0 20px;color:#52666c}
+.topnav nav a:hover{color:#254f4d;background:#f4f7f4}
+.topnav nav a.active{color:#254f4d;border-bottom-width:4px}
+.topnav a:focus-visible,.home a:focus-visible{outline:3px solid #ac874c;outline-offset:4px;border-radius:3px}
+#frame{height:calc(100dvh - var(--shell-height))}
+.home{width:calc(100% - 64px);max-width:1840px;height:auto;min-height:calc(100dvh - var(--shell-height));margin:0 auto;padding-bottom:32px;display:grid;grid-template-columns:clamp(380px,26vw,480px) minmax(0,1fr);grid-template-rows:auto minmax(610px,1fr);align-content:start}
+.home-story{grid-column:1/-1;display:grid;grid-template-columns:minmax(280px,.95fr) minmax(0,2fr);align-items:center;gap:clamp(36px,4vw,76px);padding:42px 0 40px;background:transparent;border:0}
+.home-story .purpose-label{font-size:14px;line-height:1.4;font-weight:600;letter-spacing:1.7px;text-transform:uppercase;color:#547469;margin:0 0 14px}
+.home-story h1{font-size:clamp(40px,3vw,56px);font-weight:500;line-height:1.1;letter-spacing:-1.3px;margin:0;max-width:490px;color:#233f42;text-wrap:balance}
+.home-story ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,2.5vw,44px);margin:0;padding:0;list-style:none;counter-reset:purpose}
+.home-story li{counter-increment:purpose;min-width:0;padding-top:14px;border-top:2px solid #bacdc3}
+.home-story li::before{content:"0" counter(purpose);display:block;font-size:14px;font-weight:600;color:#637e70;letter-spacing:1px;margin-bottom:10px}
+.home-story strong{display:block;font-size:clamp(20px,1.35vw,24px);font-weight:600;line-height:1.35;margin:0 0 10px;color:#263f45}
+.home-story li p{font-size:clamp(17px,1.06vw,20px);line-height:1.55;color:#50656b;margin:0;max-width:32ch}
+.home-copy{padding:34px 34px 26px;background:white;border:1px solid #d6e0da;border-right:0;border-radius:12px 0 0 12px;display:flex;flex-direction:column;min-width:0}
+.home-copy .eyebrow{display:block;font-size:14px;font-weight:600;letter-spacing:1.7px;color:#547469;margin:0 0 9px}
+.home-copy h2{font-size:clamp(46px,3.2vw,60px);font-weight:500;line-height:1.1;letter-spacing:-1.2px;margin:0 0 15px;color:#253e43}
+.home-copy .country-intro{display:block;font-size:19px;line-height:1.55;color:#52676d;margin:0 0 26px;max-width:34ch}
+.home-links{display:grid;gap:11px}
+.home-copy a.open{display:grid;grid-template-columns:1fr 24px;align-items:center;gap:14px;margin:0;padding:17px 18px;border:1px solid #d7e1db;border-radius:7px;background:#f9fbf8;color:#254f4d;text-decoration:none;transition:background .15s,border-color .15s}
+.home-copy a.open:hover{background:#edf3ec;border-color:#6d9181}
+.home-copy a.open strong{display:block;font-size:21px;line-height:1.3;font-weight:600;letter-spacing:-.2px}
+.home-copy a.open small{display:block;font-size:17px;line-height:1.45;color:#536a70;margin-top:6px}
+.home-copy a.open .link-arrow{font-size:25px;line-height:1;color:#527568;text-align:right}
+.home-copy footer{display:block;margin-top:auto;padding-top:26px;font-size:14px;line-height:1.5;color:#65777c}
+#africa{height:100%;min-height:610px;min-width:0;border:1px solid #d6e0da;border-radius:0 12px 12px 0;background:#e7edeb}
+#africa .country-label{font-family:inherit;font-size:17px;line-height:1.4;padding:10px 14px;border:1px solid #c4d3ca;border-radius:5px;color:#254f4d;box-shadow:0 2px 8px #213f3b18}
+#africa .country-label strong{font-size:19px;font-weight:600}
+#africa .country-label span{font-size:15px;font-weight:400;color:#566c70}
+#africa .leaflet-control-attribution{font-size:11px}
+@media(min-width:1700px){.topnav nav a{font-size:19px}.brand{font-size:26px}.brand span{font-size:21px}.home-copy{padding:40px}.home-copy .country-intro{font-size:21px}.home-copy a.open strong{font-size:23px}.home-copy a.open small{font-size:19px}.home-copy a.open{padding:19px 20px}.home{grid-template-rows:auto minmax(680px,1fr)}}
+@media(max-width:1100px){.topnav{padding:0 24px;gap:18px}.brand{font-size:21px}.brand span{font-size:17px}.topnav nav a{font-size:15px;padding:0 12px}.home{width:calc(100% - 48px);grid-template-columns:350px minmax(0,1fr)}.home-story{grid-template-columns:1fr;gap:28px;padding:32px 0}.home-story h1{max-width:none;font-size:40px}.home-story .purpose-label{margin-bottom:10px}.home-story ol{gap:28px}.home-story li p{max-width:none}.home-copy{padding:28px 26px}.home-copy a.open{padding:15px}.home-copy a.open strong{font-size:20px}}
+@media(max-width:720px){:root{--shell-height:126px}.topnav{height:var(--shell-height);display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;padding:17px 18px 0;gap:10px}.brand{font-size:22px;line-height:30px}.brand span{font-size:18px}.topnav nav{height:auto;flex:1;display:grid;grid-template-columns:.8fr .65fr 1.15fr 1.25fr;gap:3px}.topnav nav a{height:100%;font-size:14px;line-height:1.3;text-align:center;justify-content:center;padding:7px 5px;white-space:normal}.home{width:calc(100% - 32px);padding-bottom:20px;min-height:0;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(420px,65dvh)}.home-story{padding:28px 4px;gap:24px}.home-story h1{font-size:36px;max-width:480px;letter-spacing:-.9px}.home-story .purpose-label{font-size:12px}.home-story ol{grid-template-columns:1fr;gap:18px}.home-story li{display:grid;grid-template-columns:30px 1fr;gap:0 10px;padding-top:14px}.home-story li::before{grid-row:1/3;margin:3px 0 0}.home-story strong{font-size:20px;margin-bottom:5px}.home-story li p{font-size:17px;line-height:1.45;grid-column:2}.home-copy{padding:27px 24px;border:1px solid #d6e0da;border-bottom:0;border-radius:12px 12px 0 0}.home-copy .country-intro{font-size:18px;margin-bottom:22px}.home-copy h2{font-size:44px}.home-copy a.open{padding:16px}.home-copy a.open small{font-size:16px}.home-copy footer{padding-top:22px;font-size:13px}#africa{min-height:420px;border-radius:0 0 12px 12px}#africa .country-label{padding:7px 9px}#africa .country-label strong{font-size:17px}#africa .country-label span{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.home-copy a.open{transition:none}}

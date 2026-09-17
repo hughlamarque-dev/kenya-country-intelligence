@@ -57,7 +57,7 @@ async function load(path){
   }
   if(path==='data/funding-review-20260917.json')return (await fetchChecked(path)).arrayBuffer();
   if(path==='donors.html'){
-    const page=await (await fetchChecked('pages/donors-20260917.json?v=20260917-2')).json();
+    const page=await (await fetchChecked('pages/donors-20260917.json?v=20260917-3')).json();
     const css=new URL('assets/section-tabs.css?v=20260916-2',root).href;
     return new TextEncoder().encode(page.html.replace('</head>',`<link rel="stylesheet" href="${css}"></head>`)).buffer;
   }

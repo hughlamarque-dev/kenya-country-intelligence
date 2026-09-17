@@ -12,6 +12,7 @@
 .donor-page .programme-guide li:before{content:counter(step);position:absolute;left:0;top:0;display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#dbe9e0;color:#254f4d;font-size:14px;font-weight:600}
 .donor-page .programme-guide strong{display:block;font-size:17px;line-height:1.5}
 .donor-page .programme-guide p{font-size:16px;line-height:1.6;margin:6px 0 0;color:#40575c}
+.donor-page .programme-guide .guide-explainer{margin-top:12px;max-width:1000px;font-size:17px;color:#304d50}
 .donor-page .tabs{margin:18px 0 20px;gap:6px}
 .donor-page .primary-filters{grid-template-columns:2fr 1.25fr 1.25fr;padding:16px;gap:16px}
 .donor-page .filterbar label,.donor-page .advanced-grid label{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:500;color:#3e5359;min-width:0}
