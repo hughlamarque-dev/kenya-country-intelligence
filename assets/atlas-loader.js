@@ -57,7 +57,7 @@ async function load(path){
   }
   if(path==='data/funding-review-20260917.json')return (await fetchChecked(path)).arrayBuffer();
   if(path==='donors.html'){
-    const page=await (await fetchChecked('pages/donors-20260917.json?v=20260917-3')).json();
+    const page=await (await fetchChecked('pages/donors-20260917.json?v=20260917-4')).json();
     const css=new URL('assets/section-tabs.css?v=20260916-2',root).href;
     return new TextEncoder().encode(page.html.replace('</head>',`<link rel="stylesheet" href="${css}"></head>`)).buffer;
   }
@@ -67,7 +67,18 @@ async function load(path){
     const old='countryLabels:()=>labels(DATA.countryLabels,"country-label"),';
     const fixed='countryLabels:()=>labels({type:"FeatureCollection",features:[...(DATA.countryLabels.features||[]),...((DATA.countryLabels.features||[]).some(f=>String(f.properties?.name||f.properties?.country).toLowerCase()==="kenya")?[]:[{type:"Feature",geometry:{type:"Point",coordinates:[37.9,0.5]},properties:{name:"Kenya",country:"Kenya"}}])]},"country-label"),';
     if(!page.html.includes(old))throw Error('The map template does not match this release.');
-    page.html=page.html.replace(old,fixed);return new TextEncoder().encode(JSON.stringify(page)).buffer;
+    page.html=page.html.replace(old,fixed);
+    // Keep the country edition's instructions independent of earlier cluster projects.
+    const copyEdits=[
+      ['<p>The seven working areas follow Sam Sager’s 8 September 2026 register and roadmap. Exact official-ID matches inherit that coding. Other tags are provisional narrative and DAC-code classifications. One project may contribute to several working areas. Unclassified records remain available.</p>',''],
+      ['within the area’s intersection with the cluster','within the named area inside Kenya'],
+      ['Filtered CSVs can be downloaded after unlocking the site.','Filtered project records can be downloaded as Excel or CSV.'],
+      ['No projects match these filters. Try all working areas, or include national records.','No projects match these filters. Try all sectors, or include national records.'],
+      ['Classification and dates</h4>','Project information and dates</h4>'],
+      ["pEscape(p.classification_status==='Sam register'?'Working areas follow Sam Sager’s register, matched by official project ID.':'Working areas are provisional, based on the published narrative and sector codes.')","pEscape('Project details follow the cited source records.')"]
+    ];
+    for(const [before,after] of copyEdits)page.html=page.html.replace(before,after);
+    return new TextEncoder().encode(JSON.stringify(page)).buffer;
   }
   if(path==='analysis.html'||path==='donors.html'){
     const css=new URL('assets/section-tabs.css?v=20260916-2',root).href;
