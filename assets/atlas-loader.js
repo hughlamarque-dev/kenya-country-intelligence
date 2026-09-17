@@ -55,6 +55,12 @@ async function load(path){
     const overview=await (overviewPromise||(overviewPromise=fetchChecked('data/overview.json').then(r=>r.json()).catch(e=>{overviewPromise=null;throw e;})));
     return new TextEncoder().encode(JSON.stringify(path==='data/africa.geojson'?overview:{type:'FeatureCollection',features:overview.features.filter(f=>f.properties['ISO3166-1-Alpha-3']==='KEN')})).buffer;
   }
+  if(path==='data/funding-review-20260917.json')return (await fetchChecked(path)).arrayBuffer();
+  if(path==='donors.html'){
+    const page=await (await fetchChecked('pages/donors-20260917.json')).json();
+    const css=new URL('assets/section-tabs.css?v=20260916-2',root).href;
+    return new TextEncoder().encode(page.html.replace('</head>',`<link rel="stylesheet" href="${css}"></head>`)).buffer;
+  }
   const bytes=await assetBytes(path);
   if(path==='map-page.json'){
     const page=JSON.parse(new TextDecoder().decode(bytes));

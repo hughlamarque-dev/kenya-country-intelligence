@@ -26,3 +26,9 @@ range loading, fallback, retry, label correction and page script syntax.
 The original portable atlas remains available in Git history. Publishing a new
 portable index from QGIS would replace the lightweight entry page; integrate new
 exports with this delivery format to retain on-demand loading.
+
+## Donor evidence review — 17 September 2026
+
+The donor page adds a staged, six-stream review of 61 organisations. Documentary amounts remain separate from historic IATI flows. See [programme-design review](research/20260917/PROGRAMME_DESIGN_REVIEW.md), [consolidated evidence](data/funding-review-20260917.json) and [review inputs](research/20260917/research-inputs.json).
+
+Rebuild the reviewed data with `python tools/merge-funding-review.py`, then rebuild the donor page with `python tools/build-donor-review.py`. Both use the original published atlas archive and preserve map assets. Run `node tools/check-donor-review.cjs` with `jsdom` available for the donor interaction checks.
