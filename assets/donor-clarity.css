@@ -14,9 +14,9 @@
 .donor-page .programme-guide p{font-size:16px;line-height:1.6;margin:6px 0 0;color:#40575c}
 .donor-page .programme-guide .guide-explainer{margin-top:12px;max-width:1000px;font-size:17px;color:#304d50}
 .donor-page .tabs{margin:18px 0 20px;gap:6px}
-.donor-page .primary-filters{grid-template-columns:2fr 1.25fr 1.25fr;padding:16px;gap:16px}
+.donor-page .primary-filters{grid-template-columns:repeat(2,minmax(0,1fr));padding:16px;gap:16px}
 .donor-page .filterbar label,.donor-page .advanced-grid label{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:500;color:#3e5359;min-width:0}
-.donor-page .filterbar input,.donor-page .filterbar select,.donor-page .advanced-grid select{font:inherit;font-size:15px;min-height:44px;width:100%;min-width:0;border:1px solid #cbd7d4;padding:10px;border-radius:5px;background:white;color:#243841}
+.donor-page .filterbar input,.donor-page .filterbar select,.donor-page .advanced-grid select,.donor-page .advanced-grid input{font:inherit;font-size:15px;min-height:44px;width:100%;min-width:0;border:1px solid #cbd7d4;padding:10px;border-radius:5px;background:white;color:#243841}
 .donor-page .filter-options{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;margin:12px 0 4px}
 .donor-page .advanced-filters{flex:1;min-width:0;border:1px solid #d5dfd9;border-radius:7px;background:#fff}
 .donor-page .advanced-filters summary{padding:11px 15px;font-size:15px;font-weight:600}
@@ -45,5 +45,7 @@
 .donor-page .method li{font-size:15px}
 .donor-page .detail-card dl{font-size:14px}
 @media(max-width:850px){.donor-page .programme-guide ol{gap:18px}.donor-page .programme-guide li{padding-left:31px}.donor-page .advanced-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:600px){.donor-page .page-head{margin-bottom:16px}.donor-page .date{text-align:left}.donor-page .programme-guide{padding:15px}.donor-page .programme-guide ol{grid-template-columns:1fr;gap:16px;margin-top:16px}.donor-page .programme-guide p{margin-top:2px}.donor-page .tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px}.donor-page .tabs button{font-size:13px;min-height:54px;padding:8px 5px}.donor-page .primary-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:13px}.donor-page .primary-filters label:first-child{grid-column:1/-1}.donor-page .filter-options{gap:5px}.donor-page .filter-hint{display:none}.donor-page .advanced-grid{grid-template-columns:1fr;padding:4px 14px 16px}.donor-page .filter-count{margin-left:6px}.donor-page .kpi{padding:13px}.donor-page .kpi strong{font-size:25px}}
+@media(max-width:600px){.donor-page .page-head{margin-bottom:16px}.donor-page .date{text-align:left}.donor-page .programme-guide{padding:15px}.donor-page .programme-guide ol{grid-template-columns:1fr;gap:16px;margin-top:16px}.donor-page .programme-guide p{margin-top:2px}.donor-page .tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px}.donor-page .tabs button{font-size:13px;min-height:54px;padding:8px 5px}.donor-page .primary-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:13px}.donor-page .filter-options{gap:5px}.donor-page .filter-hint{display:none}.donor-page .advanced-grid{grid-template-columns:1fr;padding:4px 14px 16px}.donor-page .filter-count{margin-left:6px}.donor-page .kpi{padding:13px}.donor-page .kpi strong{font-size:25px}}
 @media print{.donor-page .programme-guide,.donor-page .filter-options{display:none}.donor-page .reading-note>p{display:block}}
+
+.partner-export-actions{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin:18px 0 0}.partner-export-actions button,.partner-profile-export{background:#254f4d;color:white;border-color:#254f4d;font-weight:600}.partner-export-actions span,.export-status{font-size:15px;line-height:1.55;color:#4b6269}.export-status:empty{display:none}.partner-profile-export{margin-bottom:20px}

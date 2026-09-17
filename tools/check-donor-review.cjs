@@ -1,18 +1,18 @@
 const {JSDOM}=require('jsdom');
 const fs=require('fs'),path=require('path'),assert=require('assert');
 const root=path.resolve(__dirname,'..'),manifest=JSON.parse(fs.readFileSync(path.join(root,'assets/atlas-manifest.json'))),bundle=fs.readFileSync(path.join(root,manifest.bundle));
-function dataset(p){if(p==='data/funding-review-20260917.json')return JSON.parse(fs.readFileSync(path.join(root,p)));const a=manifest.assets[p];return JSON.parse(require('zlib').gunzipSync(Buffer.from(bundle.subarray(a.offset,a.offset+a.length).toString(),'base64')))}
+function dataset(p){if(['data/funding-review-20260917.json','assets/partner-export-template.json'].includes(p))return JSON.parse(fs.readFileSync(path.join(root,p)));const a=manifest.assets[p];return JSON.parse(require('zlib').gunzipSync(Buffer.from(bundle.subarray(a.offset,a.offset+a.length).toString(),'base64')))}
 const html=JSON.parse(fs.readFileSync(path.join(root,'pages/donors-20260917.json'),'utf8')).html;
 const dom=new JSDOM(html,{url:'https://hughlamarque-dev.github.io/kenya-country-intelligence/#donors',runScripts:'outside-only',pretendToBeVisual:true});
 const w=dom.window,d=w.document,errors=[],downloads=[];
-w.console.error=(...x)=>errors.push(x.join(' '));w.alert=x=>errors.push(x);w.URL.createObjectURL=b=>{downloads.push(b);return 'blob:download'};w.URL.revokeObjectURL=()=>{};const nativeClick=w.HTMLAnchorElement.prototype.click;w.HTMLAnchorElement.prototype.click=function(){if(!this.download)nativeClick.call(this)};
+w.Blob=Blob;w.TextEncoder=TextEncoder;w.console.error=(...x)=>errors.push(x.join(' '));w.alert=x=>errors.push(x);w.URL.createObjectURL=b=>{downloads.push(b);return 'blob:download'};w.URL.revokeObjectURL=()=>{};const nativeClick=w.HTMLAnchorElement.prototype.click;w.HTMLAnchorElement.prototype.click=function(){if(!this.download)nativeClick.call(this)};
 w.fetch=async p=>({ok:true,json:async()=>dataset(p)});
 const scripts=[...d.querySelectorAll('script')];w.eval(scripts.at(-1).textContent);
 const $=x=>d.getElementById(x),click=q=>{assert(d.querySelector(q),q);d.querySelector(q).click()},change=(id,v)=>{$(id).value=v;$(id).dispatchEvent(new w.Event('change',{bubbles:true}));};
 (async()=>{
  for(let i=0;i<100&&$('app').hidden;i++)await new Promise(r=>setTimeout(r,20));
  assert(!$('app').hidden,'App did not open: '+$('loading').textContent);
- assert.equal(errors.length,0,errors.join('\n'));const initialKpis=$('kpis').textContent;
+ assert.equal(errors.length,0,errors.join('\n'));assert(!$('partners').hidden,'Partners & routes is the donor default');assert.deepEqual([...d.querySelectorAll('.primary-filters select')].map(x=>x.id),['sector','county']);assert($('county').closest('label').textContent.startsWith('Geography'));assert($('advancedFilters').contains($('search')));assert(!$('advancedFilters').open);const initialKpis=$('kpis').textContent;
  assert(initialKpis.includes('$11.48bn'),'Original donor disbursements should not increase with documentary budgets');
  assert($('sectorCoverage').textContent.includes('30%'),'Unknown-sector coverage remains visible');
  click('[data-tab="funding"]');assert($('budgetTable').textContent.includes('Reference')||$('budgetTable').textContent.includes('reference'));
@@ -24,7 +24,7 @@ const $=x=>d.getElementById(x),click=q=>{assert(d.querySelector(q),q);d.querySel
  change('routeStatus','');change('donor','UNDP');click('[data-tab="projects"]');assert($('projectTable').textContent.includes('documentary reference'),'Documentary evidence not surfaced in project table');
  click('#projectTable [data-project="KEN-P0001"]');assert($('detailContent').textContent.includes('4,623,078'));assert($('detailContent').textContent.includes('not allocated'));click('#closeDetail');
  click('#reset');change('measure','E');assert($('coverageText').textContent.includes('3 activities / 3 annual rows'));
- click('[data-tab="partners"]');click('[data-save]');click('#exportShortlist');assert.equal(downloads.length,1);
+ click('[data-tab="partners"]');click('[data-save]');click('#exportShortlistCsv');assert.equal(downloads.length,1);
  click('#reset');change('sector','Education & skills');$('search').value='Kenya education programme supporting';$('search').dispatchEvent(new w.Event('input',{bubbles:true}));await new Promise(r=>setTimeout(r,250));assert($('kpis').textContent.includes('$132.7m'),'Corrected Kenya education activity must keep its flows under the verified sector');
  assert.equal(errors.length,0,errors.join('\n'));
  console.log(JSON.stringify({passed:true,journeys:['funding totals unchanged by reference evidence','sector missingness visible','reference pagination','qualified contribution displayed','all partners accessible','open-call route filter','project evidence drawer','scope exclusions visible','shortlist export'],review:$('reviewCoverage').textContent}));

@@ -1,10 +1,10 @@
 {
   "application": "kenya-country-intelligence",
-  "release": "2026-09-17.5",
-  "atlas_sha256": "56e6bcb1b074c1333bcacd71dfbfb78439d84291811c770e49f3f7b1cc8fd2a6",
+  "release": "2026-09-17.6",
+  "atlas_sha256": "3a76523b929566421be79348ebaf5a15a30d30f6188c3f0f10f2b31ba8335006",
   "data_source_commit": "05104e1a82f9e362a62d30a167832ec044c0d5d1",
   "bundle_sha256": "59407bdb6d6d7e57af82a3e7d34bcc85ca9dcc1d0aab119744fe7668e8cb227b",
   "delivery": "lazy byte-range assets",
   "donor_review": "2026-09-17",
-  "interface": "single set of destination links on the index"
+  "interface": "Partners & routes default; sector and geography primary filters; detailed Excel partner exports"
 }

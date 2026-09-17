@@ -47,9 +47,9 @@ function reviewSummary(){
  $('sectorCoverage').textContent='Specific principal sector not reported: '+short(unknown)+(total>0?' ('+Math.round(unknown/total*100)+'% of this selection)':'')+'. The sector comparison is incomplete.';
  $('researchStatus').textContent=research.meta.project_evidence_count+' researched projects have linked financial or documentary amount evidence; '+research.meta.projects_without_amount_evidence+' remain without it. A match may cover a wider programme and does not establish a local allocation.';
 }
-function renderRoutes(){
+function filteredReviewedPartners(){
  const q=state.search.toLowerCase(),status=$('routeStatus').value,role=$('partnerRole').value;
- const rows=reviewedOrganisations.filter(o=>{
+ return reviewedOrganisations.filter(o=>{
    if(status&&o.opportunity_status!==status)return false;if(role&&o.role!==role)return false;
    if(state.donor&&!samePartner(o.name,state.donor))return false;
    const ps=D.projects.filter(p=>[p.organisation,...p.donors].some(n=>samePartner(n,o.name))&&overlap(p));
@@ -57,6 +57,9 @@ function renderRoutes(){
    if(state.sector&&!(o.sectors||[]).includes(state.sector)&&!ps.some(p=>p.sectors.includes(state.sector)))return false;
    return !q||[o.name,...(o.aliases||[]),o.approach,o.access_route,...(o.sectors||[])].join(' ').toLowerCase().includes(q)||ps.some(p=>[p.title,p.description].join(' ').toLowerCase().includes(q));
  });
+}
+function renderRoutes(){
+ const rows=filteredReviewedPartners();
  $('routeCount').textContent=rows.length+' reviewed organisations match. Open a profile for funding priorities, eligibility, application routes and supporting sources.';
  $('routesGrid').innerHTML=rows.map(o=>'<article class="card"><h3>'+esc(o.name)+'</h3><p><span class="review-badge">'+esc(roleLabels[o.role]||o.role)+'</span> <span class="review-badge">'+esc(opportunityLabels[o.opportunity_status]||'Current route not established')+'</span></p><p>'+esc(o.access_route||o.finding)+'</p><p class="small">'+esc((o.sectors||[]).join(' · '))+'</p><div class="actions"><button data-reviewed-partner="'+esc(o.name)+'">Route & evidence</button><button data-save="'+esc(o.name)+'">'+(saved.has(o.name)?'Saved ✓':'Shortlist +')+'</button></div></article>').join('')||'<p class="empty">No reviewed route matches these filters. Historical portfolios remain below.</p>';
 }
@@ -83,10 +86,10 @@ $('donor').value=state.donor;const originalReset=$('reset').onclick;$('reset').o
 $('exportCorrections').onclick=()=>csvFile('Kenya_activity_description_corrections.csv',research.activity_corrections||[]);
 
 function refreshFilterSummary(){
- const defaults={donor:'',from:Math.max(2020,asofYear-3),to:asofYear,measure:'D',instrument:'',coverage:'all'};
+ const defaults={search:'',donor:'',from:Math.max(2020,asofYear-3),to:asofYear,measure:'D',instrument:'',coverage:'all'};
  const count=Object.entries(defaults).filter(([k,v])=>state[k]!==v).length;
  $('advancedCount').hidden=!count;$('advancedCount').textContent=count+' active';
  const scope=state.county?'Kenya-wide amounts for projects associated with '+state.county+'; no county allocation.':'Kenya-wide reported flows; funding chains may overlap.';
  $('selectionSummary').textContent=[state.donor,$('measure').selectedOptions[0].textContent,state.from+'–'+state.to+(state.to===asofYear?' (year to date)':''),state.instrument,scope].filter(Boolean).join(' · ');
 }
-if(state.donor||state.measure!=='D'||state.instrument||state.coverage!=='all'||state.from!==Math.max(2020,asofYear-3)||state.to!==asofYear)$('advancedFilters').open=true;
+if(state.search||state.donor||state.measure!=='D'||state.instrument||state.coverage!=='all'||state.from!==Math.max(2020,asofYear-3)||state.to!==asofYear)$('advancedFilters').open=true;
