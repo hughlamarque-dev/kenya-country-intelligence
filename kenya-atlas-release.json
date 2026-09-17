@@ -1,9 +1,10 @@
 {
   "application": "kenya-country-intelligence",
-  "release": "2026-09-17.1",
-  "atlas_sha256": "11c6165e0e7bf8965b91a6beb90e99469d2b2348e515bdcae0132c1d267acdcc",
+  "release": "2026-09-17.2",
+  "atlas_sha256": "7b971c61509125557503865cebdbc0a7a4c2744a3af9b2d01a2879ffd07b0096",
   "data_source_commit": "05104e1a82f9e362a62d30a167832ec044c0d5d1",
   "bundle_sha256": "59407bdb6d6d7e57af82a3e7d34bcc85ca9dcc1d0aab119744fe7668e8cb227b",
   "delivery": "lazy byte-range assets",
-  "donor_review": "2026-09-17"
+  "donor_review": "2026-09-17",
+  "interface": "resource-mobilisation guidance and grouped filters"
 }

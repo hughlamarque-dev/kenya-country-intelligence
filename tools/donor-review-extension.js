@@ -64,7 +64,7 @@ function openReviewedPartner(name){const o=profileFor(name);if(!o)return;const r
 const oldActivityHtml=activityHtml;activityHtml=function(a){const c=activityCorrections.get(a.id);return oldActivityHtml(a)+(c?'<p class=\"scope-note\">'+esc(c.reason)+' <a href=\"'+esc(c.source_url)+'\" target=\"_blank\" rel=\"noopener\">Verified project evidence ↗</a></p>':'');};
 const oldFunding=funding;funding=function(){oldFunding();renderReferenceEvidence();};
 const oldPartners=partners;partners=function(){oldPartners();renderRoutes();$('morePartners').hidden=partnerRows().length<=partnerLimit;};
-const oldRender=render;render=function(){oldRender();reviewSummary();$('scope').textContent+=' Reporting chains may still overlap; this is not a consolidated net-aid total.';};
+const oldRender=render;render=function(){oldRender();reviewSummary();$('scope').textContent+=' Reporting chains may still overlap; this is not a consolidated net-aid total.';refreshFilterSummary();};
 const oldProjectDetail=projectDetail;projectDetail=function(id){oldProjectDetail(id);const rows=references.filter(e=>(e.project_ids||[]).includes(id));const box=document.createElement('section');box.innerHTML='<h2>Documentary amounts</h2><p class="small">All available reference periods are shown below, separately from IATI transactions.</p>'+evidenceHtml(rows);$('detailContent').appendChild(box);};
 const oldPartnerDetail=partnerDetail;partnerDetail=function(name){oldPartnerDetail(name);const o=profileFor(name);if(o){const section=document.createElement('section');section.innerHTML=routeHtml(o);$('detailContent').prepend(section);}const rows=references.filter(e=>samePartner(e.organisation,name)||(e.project_ids||[]).some(id=>{const p=P.get(id);return p&&[p.organisation,...p.donors].some(n=>samePartner(n,name));}));if(rows.length){const section=document.createElement('section');section.innerHTML='<h2>Documentary amounts</h2>'+evidenceHtml(rows);$('detailContent').appendChild(section);}};
 for(const o of reviewedOrganisations)if(![...$('donor').options].some(x=>x.value===o.name))$('donor').add(new Option(o.name,o.name));
@@ -81,3 +81,12 @@ $('exportGaps').onclick=()=>csvFile('Kenya_funding_research_gaps.csv',research.g
 $('donor').value=state.donor;const originalReset=$('reset').onclick;$('reset').onclick=()=>{$('routeStatus').value='';$('partnerRole').value='';$('evidenceType').value='';$('kenyaOnly').checked=true;referencePage=0;originalReset();};
 
 $('exportCorrections').onclick=()=>csvFile('Kenya_activity_description_corrections.csv',research.activity_corrections||[]);
+
+function refreshFilterSummary(){
+ const defaults={donor:'',from:Math.max(2020,asofYear-3),to:asofYear,measure:'D',instrument:'',coverage:'all'};
+ const count=Object.entries(defaults).filter(([k,v])=>state[k]!==v).length;
+ $('advancedCount').hidden=!count;$('advancedCount').textContent=count+' active';
+ const scope=state.county?'Kenya-wide amounts for projects associated with '+state.county+'; no county allocation.':'Kenya-wide reported flows; funding chains may overlap.';
+ $('selectionSummary').textContent=[state.donor,$('measure').selectedOptions[0].textContent,state.from+'–'+state.to+(state.to===asofYear?' (year to date)':''),state.instrument,scope].filter(Boolean).join(' · ');
+}
+if(state.donor||state.measure!=='D'||state.instrument||state.coverage!=='all'||state.from!==Math.max(2020,asofYear-3)||state.to!==asofYear)$('advancedFilters').open=true;

@@ -1,0 +1,48 @@
+/* Readable guidance and progressive disclosure of the complete donor toolkit. */
+.donor-page{font-size:16px}
+.donor-page .page-head{margin-bottom:20px;align-items:start}
+.donor-page .intro{font-size:16px;max-width:780px;line-height:1.6}
+.donor-page .date{font-size:13px;white-space:normal;text-align:right;line-height:1.5}
+.donor-page .programme-guide{border:1px solid #ccdcd4;border-radius:10px;background:#edf4ef;padding:16px 20px;margin:0 0 20px}
+.donor-page summary{cursor:pointer;line-height:1.5}
+.donor-page summary:focus-visible{outline:3px solid #b48948;outline-offset:5px;border-radius:2px}
+.donor-page .programme-guide summary{font-size:18px;font-weight:600;color:#254f4d}
+.donor-page .programme-guide ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;list-style:none;counter-reset:step;margin:18px 0 0;padding:0}
+.donor-page .programme-guide li{counter-increment:step;position:relative;padding-left:35px;min-width:0}
+.donor-page .programme-guide li:before{content:counter(step);position:absolute;left:0;top:0;display:grid;place-items:center;width:25px;height:25px;border-radius:50%;background:#dbe9e0;color:#254f4d;font-size:14px;font-weight:600}
+.donor-page .programme-guide strong{display:block;font-size:17px;line-height:1.5}
+.donor-page .programme-guide p{font-size:16px;line-height:1.6;margin:6px 0 0;color:#40575c}
+.donor-page .tabs{margin:18px 0 20px;gap:6px}
+.donor-page .primary-filters{grid-template-columns:2fr 1.25fr 1.25fr;padding:16px;gap:16px}
+.donor-page .filterbar label,.donor-page .advanced-grid label{display:flex;flex-direction:column;gap:8px;font-size:14px;font-weight:500;color:#3e5359;min-width:0}
+.donor-page .filterbar input,.donor-page .filterbar select,.donor-page .advanced-grid select{font:inherit;font-size:15px;min-height:44px;width:100%;min-width:0;border:1px solid #cbd7d4;padding:10px;border-radius:5px;background:white;color:#243841}
+.donor-page .filter-options{display:flex;gap:18px;align-items:flex-start;justify-content:space-between;margin:12px 0 4px}
+.donor-page .advanced-filters{flex:1;min-width:0;border:1px solid #d5dfd9;border-radius:7px;background:#fff}
+.donor-page .advanced-filters summary{padding:11px 15px;font-size:15px;font-weight:600}
+.donor-page .filter-hint{font-size:14px;font-weight:400;color:#61747c;margin-left:12px}
+.donor-page .filter-count{display:inline-block;font-size:13px;padding:2px 7px;border-radius:5px;background:#e0ece5;color:#254f4d;margin-left:12px}
+.donor-page .advanced-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:6px 18px 18px}
+.donor-page .reset-filters{min-height:45px;border-color:transparent;background:transparent;font-size:14px;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.donor-page .reset-filters:hover{background:#e9f0ec}
+.donor-page .reading-context{margin:14px 0 4px}
+.donor-page .selection-summary{font-size:14px;color:#40565c;margin:0 0 7px;line-height:1.6}
+.donor-page .reading-note{font-size:14px;color:#52676d}
+.donor-page .reading-note summary{width:fit-content;text-decoration:underline;text-underline-offset:3px}
+.donor-page .reading-note>p{max-width:950px}
+.donor-page .kpis{margin:16px 0 24px;gap:12px}
+.donor-page .kpi{padding:16px 18px}
+.donor-page .kpi span{font-size:14px;margin-bottom:7px}
+.donor-page .kpi strong{font-size:28px}
+.donor-page .kpi small{font-size:13px;margin-top:7px}
+.donor-page .small,.donor-page .foot,.donor-page .scope-note{font-size:14px;line-height:1.65}
+.donor-page .controls label{font-size:14px}
+.donor-page .controls select{font:inherit;font-size:14px;min-height:42px;padding:7px 9px;border:1px solid #cbd7d4;border-radius:5px;background:white;max-width:100%}
+.donor-page .controls button{font-size:14px;min-height:42px}
+.donor-page .review-badge{font-size:13px}
+.donor-page .partner p{font-size:15px}
+.donor-page .partner button,.donor-page .detail-card .source{font-size:14px}
+.donor-page .method li{font-size:15px}
+.donor-page .detail-card dl{font-size:14px}
+@media(max-width:850px){.donor-page .programme-guide ol{gap:18px}.donor-page .programme-guide li{padding-left:31px}.donor-page .advanced-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.donor-page .page-head{margin-bottom:16px}.donor-page .date{text-align:left}.donor-page .programme-guide{padding:15px}.donor-page .programme-guide ol{grid-template-columns:1fr;gap:16px;margin-top:16px}.donor-page .programme-guide p{margin-top:2px}.donor-page .tabs{grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;padding:5px}.donor-page .tabs button{font-size:13px;min-height:54px;padding:8px 5px}.donor-page .primary-filters{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:13px}.donor-page .primary-filters label:first-child{grid-column:1/-1}.donor-page .filter-options{gap:5px}.donor-page .filter-hint{display:none}.donor-page .advanced-grid{grid-template-columns:1fr;padding:4px 14px 16px}.donor-page .filter-count{margin-left:6px}.donor-page .kpi{padding:13px}.donor-page .kpi strong{font-size:25px}}
+@media print{.donor-page .programme-guide,.donor-page .filter-options{display:none}.donor-page .reading-note>p{display:block}}

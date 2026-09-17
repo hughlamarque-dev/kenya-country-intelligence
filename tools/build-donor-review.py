@@ -1,5 +1,5 @@
 """Build a reviewable donor page from the unchanged published atlas archive."""
-import base64,gzip,json,re
+import base64,gzip,json,re,runpy
 from pathlib import Path
 R=Path(__file__).resolve().parents[1]
 m=json.loads((R/'assets/atlas-manifest.json').read_text());b=(R/m['bundle']).read_bytes();d=m['assets']['donors.html'];s=gzip.decompress(base64.b64decode(b[d['offset']:d['offset']+d['length']])).decode()
@@ -29,5 +29,6 @@ replace("let s=Array.isArray(v)?v.join('; '):String(v??'')", "let s=Array.isArra
 replace("(p.iati_ids.length===1?'record':'records')+'</td></tr>'", "(p.iati_ids.length===1?'record':'records')+(docsByProject.has(p.id)?'<div class=\"small\">'+docsByProject.get(p.id)+' documentary reference(s)</div>':'')+'</td></tr>'")
 replace("$('loading').hidden=true;$('app').hidden=false;render();", (R/'tools/donor-review-extension.js').read_text()+"\n$('loading').hidden=true;$('app').hidden=false;render();")
 replace('</head>', '<style>.design-guide{border:1px solid #d2dfda;border-radius:9px;padding:12px 18px;margin:15px 0;background:#f3f7f4;font-size:13px;line-height:1.6}.design-guide p{margin:5px 0}.funding-evidence{padding:20px 0;border-bottom:1px solid #dce5e0}.funding-evidence h3{max-width:75%;line-height:1.4}.funding-evidence .card-header{align-items:flex-start;gap:15px}.funding-evidence strong{white-space:nowrap;font-size:17px;color:#254f4d}.review-badge{display:inline-block;padding:5px 8px;border-radius:5px;background:#e6eeea;font-size:11px;margin:4px 3px 4px 0}.partner-route{border-bottom:1px solid #dce5e0;padding-bottom:16px;margin-bottom:20px}.controls label{font-size:12px;display:flex;gap:8px;align-items:center}.source{overflow-wrap:anywhere}@media(max-width:650px){.funding-evidence .card-header{display:block}.funding-evidence h3{max-width:none}.controls label{flex-wrap:wrap}}</style></head>')
+s=runpy.run_path(str(R/'tools/donor_layout.py'))['refine'](s,R)
 (R/'pages').mkdir(exist_ok=True);(R/'pages/donors-20260917.json').write_text(json.dumps({'html':s},ensure_ascii=False,separators=(',',':'))+'\n')
 print('Built donor review page:',len(s.encode()),'bytes')
